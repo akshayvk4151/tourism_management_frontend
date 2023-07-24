@@ -1,0 +1,317 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<style>
+    .alert-success {
+        display: none;
+    }
+</style>
+
+
+
+
+{% endblock %}
+
+{% block title %}Add description{% endblock %}
+{% block content %}
+
+<!-- <section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h3>Add Description</h3>
+                <button type="button" class="btn btn-secondary">Secondary</button>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<section>
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="mb-4 mt-5">Add Destination</h1>
+
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="border-radius: 15px;">
+                    <div class="card-body">
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Place</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" placeholder="Place" id="place"
+                                    class="form-control form-control-lg" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Country</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" class="form-control form-control-lg" id="country"
+                                    placeholder="Country" />
+
+                            </div>
+                        </div>
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Bus price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="bus_price"
+                                    placeholder="Bus price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Train price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="train_price"
+                                    placeholder="Train price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Flight price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="flight_price"
+                                    placeholder="Flight price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 1</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input class="form-control form-control-lg" id="image1" type="file" />
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 2</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input class="form-control form-control-lg" id="image2" type="file" />
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 3</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input class="form-control form-control-lg" id="image3" type="file" />
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 4</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input class="form-control form-control-lg" id="image4" type="file" />
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Food price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" id="food_price" class="form-control form-control-lg"
+                                    placeholder="Food price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Number of person</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" id="total_persons" class="form-control form-control-lg"
+                                    placeholder="Number of person" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Days</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" id="days" class="form-control form-control-lg" placeholder="Days" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Nights</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" id="nights" class="form-control form-control-lg"
+                                    placeholder="Nights" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Description</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <textarea class="form-control" id="description" rows="3"
+                                    placeholder="Right description..."></textarea>
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="px-5 py-4">
+                            <button type="button" id="subBtn" class="btn btn-primary btn-lg">Add Destination</button>
+                        </div>
+                        <div class="alert alert-success alert-dismissible" id="alert-success">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong id="span1"></strong>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        $('#subBtn').click(function () {
+            var destination_data = new FormData();
+            destination_data.append('place', $('#place').val())
+            destination_data.append('country', $('#country').val())
+            destination_data.append('bus_price', $('#bus_price').val())
+            destination_data.append('train_price', $('#train_price').val())
+            destination_data.append('flight_price', $('#flight_price').val())
+            destination_data.append('image1', $('#image1')[0].files[0])
+            destination_data.append('image2', $('#image2')[0].files[0])
+            destination_data.append('image3', $('#image3')[0].files[0])
+            destination_data.append('image4', $('#image4')[0].files[0])
+            destination_data.append('food_price', $('#food_price').val())
+            destination_data.append('number_of_person', $('#total_persons').val())
+            destination_data.append('days', $('#days').val())
+            destination_data.append('nights', $('#nights').val())
+            destination_data.append('description', $('#description').val())
+            console.log(destination_data)
+
+            $.ajax({
+                url: 'http://localhost:9000/admin_app/add_destination/',
+                type: 'POST',
+                data: destination_data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.message) {
+                        $('#span1').html(response.message);
+                        $('#alert-success').show();
+                    } else {
+                        $('#alert-success').hide();
+                    }
+
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+
+
+
+            })
+
+        })
+
+    })
+
+</script>
+
+
+{% endblock %}

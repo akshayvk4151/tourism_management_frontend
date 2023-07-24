@@ -1,0 +1,262 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    .heading h1 {
+        font-weight: 700;
+        margin-top: 19px;
+        color: maroon;
+    }
+
+    .card-img-top {
+        height: 185px;
+    }
+
+    .card-img{
+        width: 150px;
+    }
+
+    .card {
+        transition: transform 0.3s ease;
+    }
+
+
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 25px;
+        letter-spacing: -1px;
+    }
+
+    .card-text {
+        color: crimson;
+        font-weight: 600;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+
+<section class="section1">
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Carousel -->
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/img1.jpg' %}" alt="Los Angeles" class="d-block w-100 img-fluid"
+                            style="max-height: 500px;">
+                    </div>
+                    <div class=" carousel-item">
+                        <img src="{% static 'images/img2.jpg' %}" alt="Chicago" class="d-block w-100 img-fluid"
+                            style="max-height: 500px;">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'images/img3.jpg' %}" alt="New York" class="d-block w-100 img-fluid"
+                            style="max-height: 500px;">
+                    </div>
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="section2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center mt-5 mb-3">
+                <h3><strong style="letter-spacing: 2px;font-size: 36px;">Our Destination</strong></h3>
+                <p style="    font-size: large;font-weight: 700;">Choose Your Next Destination</p>
+
+            </div>
+        </div>
+        <div class="row" id="destination_list">
+
+
+        </div>
+    </div>
+</section>
+
+<section class="section3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-9 mt-5 mb-5">
+                <div class="heading">
+                    <h1>Anyone can wander... but it <br>
+                        takes an expert to make it <br>
+                        memorable!</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mb-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <span><img class="card-img mb-3" src="{% static 'images/staff.png' %}"
+                                alt="Card image"></span>
+
+                        <h3 style="    font-weight: 700;font-size: 22px;">Experienced Staff</h3>
+                        <h5 style="font-size: 18px;font-weight: 500;font-family: initial;">Our friendly consultants
+                            travel
+                            regularly & offer first-hand advice to help you settle for
+                            nothing but the best!</h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-sm-12 mb-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <span><img class="card-img mb-3" src="{% static 'images/honesty.png' %}"
+                                alt="Card image"></span>
+                        <h3 style="    font-weight: 700;font-size: 22px;">Hassle-free Experience</h3>
+                        <h5 style="font-size: 18px;font-weight: 500;font-family: initial;">We coordinate your travel so
+                            flights, transfers & tours all connect smoothly and you just relax and enjoy your journey.
+                        </h5>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-sm-12 mb-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <span><img class="card-img mb-3" src="{% static 'images/trusted.png' %}"
+                                alt="Card image"></span>
+                        <h3 style="    font-weight: 700;font-size: 22px;">Trusted by Travelers</h3>
+                        <h5 style="font-size: 18px;font-weight: 500;font-family: initial;">We have conducted more than
+                            10,000+ tours. So rest assured, you’re with an expert.</h5>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-9 mt-5 mb-5">
+                <div class="heading">
+                    <h1>We aim at not to become a <br> company of success, but rather <br> company of value.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h5 style="    font-size: 19px;font-weight: 500;font-family: revert;">We are a team of dedicated
+                            professionals, and we
+                            firmly believe in providing sustainable tourism. We aim to provide new
+                            services with maximum perfection and consistency. At International Youth Club, we always
+                            prioritize customers’
+                            satisfaction and do our best to achieve it. No matter, what type of vacation you need, we
+                            have a variety of packages
+                            to
+                            fulfill your requirements. Our holiday packages not only provide local sightseeing but also
+                            adventure tourism.</h5>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h5 style="font-size: 19px;font-weight: 500;font-family: revert;">We are a team of dedicated
+                            professionals, and we
+                            firmly believe in providing sustainable tourism. We aim to provide new
+                            services with maximum perfection and consistency. At International Youth Club, we always
+                            prioritize customers’
+                            satisfaction and do our best to achieve it. No matter, what type of vacation you need, we
+                            have a variety of packages
+                            to
+                            fulfill your requirements. Our holiday packages not only provide local sightseeing but also
+                            adventure tourism.</h5>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost:9000/common/destination_index/',
+            type: 'GET',
+            success: function (data) {
+                $.each(data.destination_list, function (index, destination) {
+                    img = 'http://127.0.0.1:9000' + destination.image1
+                    console.log(img)
+                    var destination_data = '<div class="col-lg-3 col-md-6 col-sm-6"><div class="card shadow mt-3"><img class="card-img-top" src="http://127.0.0.1:9000' + destination.image1 + '" alt="Card image"><div class="card-body"><h4 class="card-title">' + destination.place + '</h4><p class="card-text">' + destination.days + ' <span>' + destination.nights + '</span></p><a href="#" class="btn btn-primary read_more" data-destination-id="' + destination.id + '">See Details</a></div></div></div>';
+                    $('#destination_list').append(destination_data);
+                });
+
+                // add event listener to read more button
+                $('.read_more').click(function (event) {
+                    event.preventDefault()
+                    var destination_Id = $(this).data('destination-id')
+
+                    window.location.href = 'http://127.0.0.1:8001/view_destinations/?id=' + destination_Id
+                })
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<!-- footer -->
+
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    .login-page {
+        width: 100%;
+        height: 100vh;
+        display: inline-block;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-right i {
+        font-size: 100px;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Customer Login{% endblock %}
+{% block content %}
+
+
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="login-page bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+
+                            <div class="bg-white shadow rounded">
+                                <div class="row">
+                                    <div class="col-md-7 pe-0">
+                                        <div class="form-left h-100 py-5 px-5">
+                                            <form action="" class="row g-4">
+                                                <div class="col-12">
+                                                    <label>Username<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-text"><i class="bi bi-person-fill"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="username"
+                                                            placeholder="Enter Username">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label>Password<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-text"><i class="bi bi-lock-fill"></i>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="password"
+                                                            placeholder="Enter Password">
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="col-12">
+                                                    <button type="button" id="subBtn"
+                                                        class="btn btn-primary px-4 mt-4">login</button>
+                                                    <span id="span1" style="color: brown;"></span>
+                                                </div>
+                                                <div class="col- text-center">
+                                                    <p class="question">Don't have an account?</p>
+                                                    <a class="createAcc" href="/customer_register/">Create an
+                                                        account.</a>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 ps-0 d-none d-md-block">
+                                        <div class="form-right h-100 bg-primary text-white text-center pt-5">
+                                            <i class="bi bi-person-circle"></i>
+                                            <h2 class="fs-1">User Login</h2>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#subBtn').click(function () {
+            customer_email = $('#username').val()
+            customer_password = $('#password').val()
+            console.log(customer_email, customer_password)
+
+            $.ajax({
+                url: 'http://localhost:9000/common/customer_login/',
+                data: {
+                    'username': customer_email,
+                    'password': customer_password
+                },
+                type: 'POST',
+
+                success: function (response) {
+                    console.log(response.status)
+                    if (response.status == true) {
+                        localStorage.setItem('token', response.token)
+                        localStorage.setItem('customer_id', response.customer_id)
+                        window.location.href = 'http://127.0.0.1:8001/'
+                        alert("Welcome to your account  " + '' + response.customer_data.customer_name);
+                        console.log("Welcome to your account");
+                    }
+                    else {
+                        $('#span1').html('email or password not match')
+                    }
+                }
+
+            })
+        })
+    })
+</script>
+
+<!-- <script>
+    function convertNavbarToCustomerAccountNavbar() {
+        // Get the customer ID from the localStorage.
+        const customerId = localStorage.getItem('customer_id');
+
+        // Get the customer data from the database using the customer ID.
+        const customer = Customer.objects.get(id = customerId);
+
+        // Create a new navbar object.
+        const navbar = new Navbar();
+
+        // Add the customer's name to the navbar.
+        navbar.name = customer.name;
+
+        // Add links to the customer's profile, change password, and logout pages to the navbar.
+        navbar.links = [
+            {
+                href: `/customer/profile/${customerId}`,
+                text: 'Profile',
+            },
+            {
+                href: `/customer/change-password/${customerId}`,
+                text: 'Change Password',
+            },
+            {
+                href: `/customer/logout`,
+                text: 'Logout',
+            },
+        ];
+
+        // Set the navbar as the active navbar.
+        setActiveNavbar(navbar);
+    }
+
+    $(document).on('click', '#login', function () {
+        convertNavbarToCustomerAccountNavbar();
+    });
+</script> -->
+
+
+
+
+{% endblock %}

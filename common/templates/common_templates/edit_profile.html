@@ -1,0 +1,218 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    #place::first-letter {
+        text-transform: capitalize;
+    }
+
+    .alert-success {
+        display: none;
+    }
+
+
+    @media (max-width: 400px) {
+        tbody tr {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        tbody th,
+        tbody td {
+            flex: 100%;
+        }
+
+        tbody td input {
+            width: 100%;
+        }
+    }
+</style>
+
+
+
+
+{% endblock %}
+
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 mb-4 text-center">
+                <h2><strong style="background-color: whitesmoke;">Edit Profile</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow" style="background-color: ghostwhite;">
+                    
+                    <div class="row mt-5 mb-5" style="padding: 12px;">
+                        <div class="col-md-12">
+                            <div class="card-content">
+                                <form enctype="multipart/form-data">
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Full Name*</th>
+                                                        <td><input type="text" id="cust_name"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Phone No*</th>
+                                                        <td><input type="number" id="cust_phone"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Email*</th>
+                                                        <td><input type="email" id="cust_email"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Address*</th>
+                                                        <td><input type="text" id="cust_address"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Profile Pic*</th>
+                                                        <td><input id="cust_image" type="file"  name="profile_pic"><span
+                                                                id="img_address"></span></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-12 text-center">
+                                                <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+                                                <button class="btn btn-danger"><a href="{% url 'common:view_profile' %}" style="text-decoration: none;color: #fff;">Cancel</a></button>
+                                            </div>
+
+                                        </div>
+                                        <div class="alert alert-success alert-dismissible" id="alert-success">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                            <strong id="span1"></strong>
+                                        </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        // Get the ID from the URL
+
+        var customer_id = localStorage.getItem('customer_id')
+        // console.log(customer_id)
+        $.ajax({
+            url: "http://localhost:9000/common/edit_profile/" + customer_id + "/",
+            type: 'GET',
+            success: function (data) {
+                // console.log(data)
+
+                $('#cust_name').val(data.data.customer_name)
+                console.log(data.data.customer_name)
+                $('#cust_phone').val(data.data.customer_phone)
+                $('#cust_email').val(data.data.customer_email)
+                $('#cust_address').val(data.data.customer_address)
+                $('#img_address').text(data.data.profile_pic)
+                // console.log(data.data.profile_pic)
+            }
+
+
+        })
+        $('#saveBtn').click(function () {
+            var customer_data = new FormData();
+            customer_data.append('id', customer_id);
+
+            if ($("#cust_name").val() !== "") {
+                customer_data.append('customer_name', $("#cust_name").val());
+            }
+            if ($("#cust_phone").val() !== "") {
+                customer_data.append('customer_phone', $("#cust_phone").val());
+            }
+            if ($("#cust_email").val() !== "") {
+                customer_data.append('customer_email', $("#cust_email").val());
+            }
+            if ($("#cust_address").val() !== "") {
+                customer_data.append('customer_address', $("#cust_address").val());
+            }
+            if ($("#cust_image").val() !== "") {
+                customer_data.append('profile_pic', $('#cust_image')[0].files[0]);
+            }
+            console.log(customer_data)
+            $.ajax({
+                url: 'http://localhost:9000/common/edit_profile/' + customer_id + '/',
+                type: 'PUT',
+                data: customer_data,
+                processData: false,
+                contentType: false,
+                
+                success: function (data) {
+                    // console.log(data.message)
+                    if (data.message) {
+                        $('#span1').html(data.message);
+                        $('#alert-success').show();
+                        window.location.href = "http://127.0.0.1:8001/view_profile/";
+                    } else {
+                        $('#alert-success').hide();
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    // Handle error response as needed
+                }
+
+            })
+
+        })
+
+    })
+</script>
+
+
+
+
+
+
+
+{% endblock %}

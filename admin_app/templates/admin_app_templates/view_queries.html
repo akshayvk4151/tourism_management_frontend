@@ -1,0 +1,179 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    strong {
+        text-shadow: 3px 2px 4px #000000;
+        letter-spacing: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+
+        font-size: 17px;
+        font-weight: 500;
+        background-color: cadetblue;
+        color: ivory;
+    }
+
+    .tableHead {
+        background-color: darkblue;
+        color: #fff;
+        height: 53px;
+    }
+
+    .docImage img {
+        width: 85px;
+        border-radius: 9px;
+        border: 1px solid #fff;
+    }
+
+    .notFound {
+        text-align: center;
+        margin-bottom: 16px;
+        color: red;
+        font-size: 27px;
+        font-weight: 500;
+    }
+
+    .tableHead th {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 350px) {
+        .tableHead th {
+            white-space: normal;
+            width: auto;
+        }
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-5"><strong>View Queries</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid">
+                <div style="overflow-x: auto;">
+                    <table id="tabData">
+                        <tr class="tableHead">
+                            <th>SL.No</th>
+                            <th>Full name</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Description</th>
+
+                            <th>Action</th>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/view_queries/',
+            typr: 'GET',
+            success: function (response) {
+                if (response.query_data.length === 0) {
+                    $('.tableHead').html('<h3 class="col-md-12 text-center mt-2"> No Queries Found. </h3>');
+                } else {
+                    for (var i = 0; i < response.query_data.length; i++) {
+                        var query = response.query_data[i]
+                        var tr = $('<tr>')
+                        tr.append('<td>' + (i + 1) + '</td>')
+                        // tr.append('<td>' + query.id + '</td>')
+                        tr.append('<td>' + query.name + '</td>')
+                        tr.append('<td>' + query.phone + '</td>')
+                        tr.append('<td>' + query.email + '</td>')
+                        tr.append('<td>' + query.description + '</td>')
+
+                        tr.append('<td class="btn btn-danger m-2 deleteButton" id="deleteButton' + query.id + '">Delete</td>');
+
+
+                        $('#tabData').append(tr)
+
+                    }
+                }
+
+                // add event listener to delete button
+
+                $(document).on('click', '.deleteButton', function () {
+                    var queries_Id = $(this).attr('id').replace('deleteButton', '')
+                    var confirmDelete = confirm('Are you sure you want to delete?');
+                    if (confirmDelete) {
+                        delete_query(queries_Id);
+                    }
+                    else {
+                        alert('Customer deletion cancelled.');
+                    }
+
+
+                    function delete_query(query_Id) {
+                        $.ajax({
+                            url: 'http://localhost:9000/admin_app/delete_queries/' + query_Id + '/',
+                            type: 'DELETE',
+                            success: function (responce) {
+                                $('#deleteButton' + query_Id).closest('tr').remove();
+                                window.location.href = "http://127.0.0.1:8001/admin_app/view_queries/";
+                                alert(responce.message)
+
+
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+
+                        })
+
+                    }
+
+
+                })
+
+            }
+        })
+
+
+
+    })
+</script>
+
+
+
+
+
+
+{% endblock %}

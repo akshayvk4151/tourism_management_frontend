@@ -1,0 +1,139 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    .cont1 {
+        font-size: 22px;
+        letter-spacing: 1px;
+        color: darkslategray;
+    }
+
+    .logos img {
+        margin: auto;
+        width: 87%;
+    }
+
+    @media only screen and (min-width:768px) and (max-width:991px) {
+        .right-section img {
+            min-width: 127%;
+        }
+
+    }
+
+    @media only screen and (max-width:767px) {
+        .right-section img {
+            min-width: 100%;
+
+        }
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section class="section1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 order-2 order-md-1 mt-5">
+                <div class="left-section" style="    margin: 5px;">
+                    <h6 class="cont1 mb-3">Our Vision</h6>
+                    <h1 class="cont2 mb-4" style="    font-weight: 700;">Helping You Explore <br> The World...</h1>
+                    <h5 class="cont1 mb-4">With International Youth Club, you don’t need to worry about anything, just
+                        tell us your
+                        requirements and we will get
+                        customized and the best packages for you!</h5>
+                </div>
+            </div>
+            <div class=" col-lg-6 col-md-6 mt-5 col-sm-12 order-1 order-md-2">
+                <div class="right-section">
+                    <img class="card-img-top" src="{% static 'images/about-3.jpg' %}" alt="Card image image-fluid"
+                        style="width: 80%;">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+<section class="section1">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-9 mt-5">
+                <div>
+                    <h2 style="font-weight: bold;margin-bottom: 29px;">Our Story</h2>
+                    <h5 style="    font-size: 21px;font-weight: 500; letter-spacing: 1px; color: #444444;">We are a team
+                        of dedicated professionals, and we firmly believe in providing sustainable
+                        tourism. We aim to provide new
+                        services with maximum perfection and consistency. We at International Youth Club always
+                        prioritize customers’
+                        satisfaction and do our best to achieve it. No matter, what type of vacation you need, we have a
+                        variety of packages to
+                        fulfill your requirements. Our holiday packages not only provide local sight-seeing but also
+                        adventure tourism. <br><br>We respect discipline and ensure the fixed departure. We make your
+                        vacations interesting and unforgettable by adding the
+                        taste of spicy adventures. We offer services such as Adventure Travel Packages, Motorbiking
+                        Tours, and Fixed Departure
+                        Tours at reasonable prices. <br><br> Our remarkable services have honored us to serve SpiceJet,
+                        Bosch and Laumb, Accenture, and HCL. Our team always makes
+                        sure to provide the best ever services to our clients. We continually are adopting new
+                        technologies to meet the
+                        ever-changing demands of the audience. International Youth Club is committed to providing
+                        quality services to our
+                        customers. </h5>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section1" style="margin-top: 110px;">
+    <div class="container-fluid">
+        <div class="row mt-5">
+
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/11.png' %}" alt="Card image image-fluid">
+
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/10-2048x307.png' %}" alt="Card image image-fluid">
+
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/9.png' %}" alt="Card image image-fluid">
+
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/8.png' %}" alt="Card image image-fluid">
+
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/7.png' %}" alt="Card image image-fluid">
+
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 logos">
+                <img class="card-img-top" src="{% static 'images/3-2.png' %}" alt="Card image image-fluid">
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+<!-- footer -->
+
+{% endblock %}

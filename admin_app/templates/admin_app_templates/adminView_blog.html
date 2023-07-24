@@ -1,0 +1,185 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    strong {
+        text-shadow: 3px 2px 4px #000000;
+        letter-spacing: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+
+        font-size: 17px;
+        font-weight: 500;
+        background-color: cadetblue;
+        color: ivory;
+    }
+
+    .tableHead {
+        background-color: darkblue;
+        color: #fff;
+        height: 53px;
+    }
+
+    .docImage img {
+        width: 85px;
+        border-radius: 9px;
+        border: 1px solid #fff;
+    }
+
+
+
+    .card-img {
+        width: 80px;
+        height: 88px;
+    }
+
+    .btn {
+        float: right;
+        margin-bottom: 1px;
+    }
+
+    .tableHead th {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 350px) {
+        .tableHead th {
+            white-space: normal;
+            width: auto;
+        }
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Admin view blog{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-5"><strong>View Blog</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container">
+                <div style="overflow-x: auto;">
+                    <table id="tabData">
+                        <tr class="tableHead">
+                            <th>SL.No</th>
+                            <th>Image</th>
+                            <th>Blog topic</th>
+                            <th>Post date</th>
+                            <th>Description</th>
+
+                            <th colspan="2" class="text-center">Action</th>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<script>
+    $(document).ready(function () {
+
+
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/adminView_blog/',
+            type: 'GET',
+            success: function (response) {
+                if (response.blog_data.length === 0) {
+                    $('.tableHead').html('<h3 class="col-md-12 text-center mt-2"> No Blog are added. </h3>');
+                } else {
+                    for (var i = 0; i < response.blog_data.length; i++) {
+                        var blog = response.blog_data[i];
+                        var tr = $('<tr>');
+                        tr.append('<td class="blog_id">' + (i + 1) + '</td>');
+                        tr.append('<td><img class="card-img" src="http://127.0.0.1:9000' + blog.blog_image + '" alt="Card image"></td>');
+                        tr.append('<td>' + blog.Blog_topic + '</td>');
+                        tr.append('<td>' + blog.post_date + '</td>');
+                        tr.append('<td>' + blog.blog_description + '</td>');
+
+                        tr.append("<td><button class='btn btn-info editButton' id='editButton" + "' data-post-id='" + blog.id + "'>Edit</button></td>");
+                        tr.append("<td><button class='btn btn-danger deleteButton' id='deleteButton" + blog.id + "'>Delete</button></td>");
+                        $('#tabData').append(tr);
+                    }
+                }
+
+                // add event listener to read more button
+                $('.editButton').click(function (event) {
+                    event.preventDefault()
+                    var blog_Id = $(this).data('post-id')
+
+                    window.location.href = 'http://127.0.0.1:8001/admin_app/adminBlog_edit/?id=' + blog_Id
+                })
+
+                $(document).on('click', '.deleteButton', function () {
+                    var blog_Id = $(this).attr('id').replace('deleteButton', '')
+                    var confirmDelete = confirm('Are you sure you want to delete?');
+                    if (confirmDelete) {
+                        deleteblog(blog_Id);
+                    }
+                    else {
+                        console.log('Customer deletion cancelled.');
+                    }
+
+                    // alert(blog_id)
+                    function deleteblog(blog_Id) {
+                        $.ajax({
+                            url: 'http://localhost:9000/admin_app/delete_blog/' + blog_Id + '/',
+                            type: 'DELETE',
+                            success: function (responce) {
+                                $('#deleteButton' + blog_Id).closest('tr').remove();
+                                alert(responce.message)
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+
+                        })
+
+                    }
+
+
+                })
+
+            }
+
+
+        });
+    });
+</script>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    strong {
+        text-shadow: 3px 2px 4px #000000;
+        letter-spacing: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+
+        font-size: 17px;
+        font-weight: 500;
+        background-color: cadetblue;
+        color: ivory;
+    }
+
+    .tableHead {
+        background-color: darkblue;
+        color: #fff;
+        height: 53px;
+    }
+
+    .docImage img {
+        width: 85px;
+        border-radius: 9px;
+        border: 1px solid #fff;
+    }
+
+    .notFound {
+        text-align: center;
+        margin-bottom: 16px;
+        color: red;
+        font-size: 27px;
+        font-weight: 500;
+    }
+
+    .btn {
+        float: right;
+        margin-bottom: 1px;
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-5"><strong>View Booking</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid">
+                <div style="overflow-x: auto;">
+                    <table id="tabData">
+                        <tr class="tableHead">
+                            <th>SL.No</th>
+                            <th>Full name</th>
+                            <th>Email Id</th>
+                            <th>Booking date</th>
+                            <th>Destination</th>
+                            <th>Gender</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+{% endblock %}

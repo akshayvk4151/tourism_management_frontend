@@ -1,0 +1,148 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+
+
+
+{% endblock %}
+
+{% block title %}View Profile{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mt-5 mb-4 text-center">
+                <h2><strong style="background-color: whitesmoke;">View Profile</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow" style="background-color: ghostwhite;">
+                    <div class="row mt-3">
+                        <div class="col-md-12 mt-3 mb-5 text-center">
+                            <img src="" alt="" id="cust_image" class="img-fluid shadow rounded-circle"
+                                style="width: 136px;height: 132px;">
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding: 12px;">
+                        <div class="col-md-12">
+                            <div class="card-content">
+                                <form>
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" style="width: 150px;">Full Name*</th>
+                                                        <td style="width: calc(100% - 150px);" id="cust_name"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" style="width: 150px;">Phone No*</th>
+                                                        <td style="width: calc(100% - 150px);" id="cust_phone"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" style="width: 150px;">Email*</th>
+                                                        <td style="width: calc(100% - 150px);" id="cust_email"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" style="width: 150px;">Address*</th>
+                                                        <td style="width: calc(100% - 150px);" id="cust_address"></td>
+                                                    </tr>
+                                                    <!-- Add more rows as needed -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-12 text-center">
+                                            <button class="btn btn-primary" id="editBtn">Edit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        // Get the ID from the URL
+
+        var customer_id = localStorage.getItem('customer_id')
+        // console.log(customer_id)
+
+        $.ajax({
+            url: "http://localhost:9000/common/view_profile/" + customer_id + "/",
+            type: 'GET',
+            success: function (data) {
+                // console.log(data)
+                img = 'http://127.0.0.1:9000' + data.data.profile_pic
+                console.log(data.data.profile_pic)
+                $("#cust_image").attr('src', img)
+                // console.log(img)
+
+                $('#cust_name').text(data.data.customer_name)
+                $('#cust_phone').text(data.data.customer_phone)
+                $('#cust_email').text(data.data.customer_email)
+                $('#cust_address').text(data.data.customer_address)
+
+                // add event listener to edit button
+                $('#editBtn').click(function (event) {
+                    event.preventDefault()
+
+                    window.location.href = 'http://127.0.0.1:8001/edit_profile/?id=' + customer_id
+                })
+
+
+
+
+
+            }
+
+
+        })
+
+
+
+
+    })
+</script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+
+
+
+{% endblock %}
+
+{% block title %}Booking{% endblock %}
+{% block content %}
+
+
+<section>
+    <div class="container py-5 ">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow card-registration" style="border-radius: 15px;background-color: ghostwhite;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Payment</h3>
+                        <form>
+
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" id="Name" name="name" class="form-control form-control-lg"
+                                            required />
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" id="email" class="form-control form-control-lg" required />
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                                    <div class="form-outline datepicker w-100">
+                                        <label class="form-label">Mobile Number</label>
+                                        <input type="number" name="phone" class="form-control form-control-lg"
+                                            id="phone" required />
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <h6 class="mb-2 pb-1">Gender: </h6>
+
+
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="maleGender"
+                                            value="male" checked />
+                                        <label class="form-check-label">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="femaleGender"
+                                            value="femail" />
+                                        <label class="form-check-label">Female</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="otherGender"
+                                            value="other" />
+                                        <label class="form-check-label">Other</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline datepicker w-100">
+                                        <label class="form-label" required>Booking Date</label>
+                                        <input type="date" name="date" class="form-control form-control-lg" id="date"
+                                            required />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+
+                                    <div class="form-outline">
+                                        <label class="form-label">Total Price</label>
+                                        <input type="number" name="total_price" id="total_price"
+                                            class="form-control form-control-lg" required />
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <label class="form-label" for="Address">Address</label>
+                                        <textarea class="form-control form-control-lg"
+                                            style="font-size: 20px;height: 50px;" name="address" id="" cols="30"
+                                            rows="4" placeholder="Write here..." required></textarea>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 mb-4 pb-2">
+
+                                    <div class="form-outline">
+                                        <label class="form-label">Used Facility</label>
+                                        <input type="text" id="facility" class="form-control form-control-lg"
+                                            required />
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="mt-4 pt-2">
+                                <button class="btn btn-outline-warning form-control mt-3" id="paymentBtn"
+                                    style="color:green;font-weight: bold;">
+                                    Payment
+                                </button>
+                            </div>
+
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

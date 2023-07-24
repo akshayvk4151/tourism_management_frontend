@@ -1,0 +1,98 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<style>
+    img {
+
+        border-radius: 15px;
+        
+    }
+
+    table {
+        width: 350px;
+        height: 86px;
+        border-collapse: collapse;
+        width: 60%;
+    }
+
+    th {
+        border: 1px solid gray;
+        padding-left: 10px;
+
+    }
+
+    td {
+        border: 1px solid gray;
+        padding-left: 10px;
+    }
+</style>
+
+
+{% endblock %}
+
+{% block title %}Blog{% endblock %}
+{% block content %}
+
+
+<section class="section1">
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <img src="" id="blog-post-image" style=" height: 500px;width: 100%;" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th class="ms-5" style="width: 30%;">Topic</th>
+                            <td id="blog-post-title"></td>
+                        </tr>
+                        <tr>
+                            <th style="width: 30%;">Post Date</th>
+                            <td id="blog-post-date"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="description">
+                    <h5 style="font-style: italic;" id="blog-post-content">
+
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // Get the post ID from the URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var postId = urlParams.get('id');
+
+        // Fetch the blog post data from your server using an AJAX request
+        $.ajax({
+            url: 'http://localhost:9000/common/view_blog/' + postId,
+            type: 'GET',
+            success: function (data) {
+                // Update the HTML elements with the blog post data
+                $('#blog-post-title').text(data.post.Blog_topic);
+                img = 'http://127.0.0.1:9000' + data.post.blog_image
+                $('#blog-post-image').attr('src', img);
+                console.log(data.post.blog_image)
+                $('#blog-post-content').text(data.post.blog_content);
+                $('#blog-post-date').text(data.post.post_date);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

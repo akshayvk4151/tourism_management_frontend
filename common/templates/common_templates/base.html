@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- icon link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <!-- razorpay  -->
+    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </script>
+    <script rel="stylesheet" href="{% static '/bootstrap/bootstrap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: black;
+        }
+
+        #navbar {
+            box-shadow: 0 3px 9px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            padding: .5rem .5rem;
+
+        }
+
+        .koko {
+            color: rgba(165, 42, 42, 0.938);
+
+        }
+
+        #navbarNav a {
+            border-bottom: 2px solid transparent;
+            color: black;
+
+        }
+
+        #navbarNav a:hover {
+            border-bottom: 2px solid rgba(165, 42, 42, 0.938);
+            color: black;
+
+        }
+
+        #navbarNav i:hover {
+            color: rgba(165, 42, 42, 0.938);
+
+
+        }
+
+        footer {
+            background-color: #e9ebed !important;
+        }
+    </style>
+    {% block header %}
+
+    {% endblock %}
+    <title>{% block title %}base{% endblock %}</title>
+</head>
+
+<body>
+
+    <body id="ll">
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-light " id="navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold fs-2" href="#"><span class="koko">Tourism Management</span> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-expanded="false">
+                    <span class="navbar-toggler-icon "><i class="bi bi-list"></i></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class="navbar-nav fw-bold mx-auto" id="list">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'common:home' %}"
+                                style="color: brown;">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link booking" aria-current="page" href="{% url 'common:my_booking' %}">My
+                                Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link profile" aria-current="page" href="{% url 'common:view_profile' %}">View
+                                Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link change_password" aria-current="page"
+                                href="{% url 'common:change_password' %}">Change
+                                Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'common:about' %}" style="color: black;">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'common:blog' %}" style="color: black;">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'common:contact' %}" style="color: black;">Contact Us</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link customer_login" href="{% url 'common:customer_login' %}"
+                                style="color: black;">Login</a>
+                        </li>
+
+
+                        <!-- <li class="nav-item ms-5">
+                            <form class="d-flex" method="">
+
+                                <input class="form-control me-2 " type="search" placeholder="Search product"
+                                    aria-label="Search" id="searchdata" name="searchdata">
+                                <button class="btn btn-outline-dark" type="type" id="searchbtn"
+                                    style="background-color: rgb(189, 68, 68);color: white;"><i
+                                        class="bi bi-search"></i></button>
+
+                            </form>
+                            <div class="serch" id="search">
+
+                               
+                            </div>
+                        </li> -->
+
+                    </ul>
+                    <div class="ms-3 " id="customer_namePlace">
+                        <h5 class="nav-link "
+                            style="font-size: 15px; margin: auto;font-weight: bold;background-color: lavender;">Welcome
+                            <span id="customer_name"></span>
+                        </h5>
+
+                    </div>
+                    <div class="admin_login ms-3">
+
+
+                        <!-- <a href="" type=" button " class="btn"><i class="bi bi-cart-fill"></i></a> -->
+
+                        <a href="{% url 'common:admin_login' %}" type="button" class="btn"><i class="bi bi-person-fill">Admin Login</i></a>
+                        <!-- <a href="" type="button" class="btn text-danger"><i class="bi bi-box-arrow-right"></i></a> -->
+
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </nav>
+
+
+        {% block content %}{% endblock %}
+
+        <!-- Footer Section -->
+
+        <footer class="mt-5 pt-5 pb-3" id="footer">
+            <div class="container text-center text-md-start">
+                <div class="row ">
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <h5><span class="koko">Tourism Management</h5>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus, unde? Et, facere?
+                            Distinctio officia, pariatur eos ipsa tenetur veniam sapiente! Aut ipsam dicta, numquam
+                            repudiandae natus expedita alias deserunt. Quam?</p>
+                    </div>
+                    <!-- <div class="col-lg-3 col-md-3 col-sm-6">
+                        <h5>PRODUCTS</h5>
+                        <p><a href=""></a>Dates</p>
+                        <p><a href=""></a>Dry Fruit</p>
+                        <p><a href=""></a>Chocolates</p>
+                        <p><a href=""></a>Nuts</p>
+                    </div> -->
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <h5>LINKS</h5>
+                        <p><a href=""></a>Home</p>
+                        <p><a href=""></a>Blog</p>
+                        <p><a href=""></a>About Us</p>
+                        <p><a href=""></a>Contact Us</p>
+                        <p><a href=""></a>Terms & Conditions</p>
+
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <h5>CONTACT</h5>
+                        <p><i class="bi bi-house-fill"></i> Calicut,kerala</p>
+                        <p><i class="bi bi-envelope-fill"></i>tourism@gmail.com</p>
+                        <p><i class="bi bi-phone-fill"></i>+91 9645312745</p>
+                        <p><i class="bi bi-printer-fill"></i>+33 2123215</p>
+
+                    </div>
+
+                </div>
+                <hr class="mb-4">
+                <div class="row">
+                    <div class="col-lg-7 col-sm-12">
+                        <p>copyright 2020 reserved by:<strong>Tourism management</strong></p>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item"><a href="" class="btn-sm" style="font-size: 25px;"><i
+                                        class="bi bi-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="" class="btn-sm" style="font-size: 25px;"><i
+                                        class="bi bi-whatsapp"></i></a></li>
+
+                            <li class="list-inline-item"><a href="" class="btn-sm" style="font-size: 25px;"><i
+                                        class="bi bi-twitter"></i></a></li>
+
+                            <li class="list-inline-item"><a href="" class="btn-sm" style="font-size: 25px;"><i
+                                        class="bi bi-linkedin"></i></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+    </body>
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            var token = localStorage.getItem('token');
+            var customer_id = localStorage.getItem('customer_id');
+
+            // Function to handle logout
+            function logout() {
+                $.ajax({
+                    url: 'http://localhost:9000/common/customer_logout/',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Token ' + token
+                    },
+                    success: function (response) {
+                        // Clear the token and customer_id from local storage
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('customer_id');
+
+                        // Perform any additional actions after logout (e.g., redirect to login page)
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            if (token && customer_id) {
+                // If the token and customer_id exist in localStorage, send a request to fetch customer data
+                $.ajax({
+                    url: 'http://localhost:9000/common/customer_accound/' + customer_id + '/',
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Token ' + token
+                    },
+                    success: function (response) {
+                        var customerName = response.customer_data.customer_name;
+                        $('#customer_name').text(customerName);
+
+                        if (customerName) {
+                            // If customerName exists, the customer is logged in
+                            $('.customer_login').text('Logout').on('click', function () {
+                                logout(); // Call the logout function
+                                window.location.href = '{% url "common:customer_login" %}'; // Redirect to login page
+                            });
+                            $('.customer_login').show()
+                            $('.admin_login').hide();
+                            $('#customer_namePlace').show();
+                            $('.booking').show();
+                            $('.profile').show();
+                            $('.change_password').show()
+
+                        } else {
+                            // If customerName does not exist, the customer is not logged in
+                            $('.customer_login').text('Login').attr('href', '{% url "common:customer_login" %}');
+                            $('.admin_login').show();
+                            $('#customer_namePlace').hide()
+                            $('.booking').hide();
+                            $('.profile').hide();
+                            $('.change_password').hide()
+
+
+                        }
+                    },
+                    error: function () {
+                        // Handle the error case if the request fails
+                        $('#login_link').text('Login').attr('href', '{% url "common:customer_login" %}');
+                        $('.admin_login').show();
+                        $('#customer_namePlace').hide()
+                        $('.booking').hide();
+                        $('.profile').hide();
+                        $('.change_password').hide()
+                    }
+                });
+            } else {
+                // If token or customer_id do not exist, the customer is not logged in
+                $('#login_link').text('Login').attr('href', '{% url "common:customer_login" %}');
+                $('.admin_login').show();
+                $('#customer_namePlace').hide()
+                $('.booking').hide();
+                $('.profile').hide();
+                $('.change_password').hide()
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,163 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    strong {
+        text-shadow: 3px 2px 4px #000000;
+        letter-spacing: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+
+        font-size: 17px;
+        font-weight: 500;
+        background-color: cadetblue;
+        color: ivory;
+    }
+
+    .tableHead {
+        background-color: darkblue;
+        color: #fff;
+        height: 53px;
+    }
+
+    .docImage img {
+        width: 85px;
+        border-radius: 9px;
+        border: 1px solid #fff;
+    }
+
+    .notFound {
+        text-align: center;
+        margin-bottom: 16px;
+        color: red;
+        font-size: 27px;
+        font-weight: 500;
+    }
+
+    .tableHead th {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 350px) {
+        .tableHead th {
+            white-space: normal;
+            width: auto;
+        }
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-3"><strong>View all Customer</strong> </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid">
+                <div style="overflow-x: auto;">
+                    <table id="tabData">
+                        <tr class="tableHead">
+                            <th>SL.No</th>
+                            <!-- <th>Image</th> -->
+                            <th>Full Name</th>
+                            <th>Mobile</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/view_customer/',
+            type: 'GET',
+            success: function (response) {
+                if (response.customer_data.length === 0) {
+                    $('.tableHead').html('<h3 class="col-md-12 text-center mt-2"> No Customer Registered. </h3>');
+                } else {
+                    for (var i = 0; i < response.customer_data.length; i++) {
+                        var customer = response.customer_data[i]
+                        var tr = $('<tr>')
+                        tr.append('<td>' + (i + 1) + '</td>')
+                        // tr.append('<td>' + customer.id + '</td>')
+                        tr.append('<td>' + customer.customer_name + '</td>')
+
+                        tr.append('<td>' + customer.customer_phone + '</td>')
+                        tr.append('<td>' + customer.customer_address + '</td>')
+                        tr.append('<td>' + customer.customer_email + '</td>')
+                        tr.append("<td><button class='btn btn-danger' id='deleteButton" + customer.id + "'>delete</button></td>");
+
+                        $('#tabData').append(tr)
+
+                    }
+                }
+            }
+        })
+    })
+    $(document).on('click', '[id^="deleteButton"]', function () {
+        var buttonId = $(this).attr('id');
+        var customerId = buttonId.replace('deleteButton', '');
+        console.log('Customer ID: ' + customerId);
+        var confirmDelete = confirm('Are you sure you want to delete?');
+        if (confirmDelete) {
+            deleteCustomer(customerId);
+        }
+        else {
+            alert('Customer deletion cancelled.');
+        }
+    });
+    function deleteCustomer(customerId) {
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/delete_customer/' + customerId + '/',
+            type: 'DELETE',
+            success: function (response) {
+                $('#deleteButton' + customerId).closest('tr').remove();
+
+                alert(response.message)
+                window.location.href = "http://127.0.0.1:8001/admin_app/all_customers/";
+            },
+            error: function (response) {
+                alert('Error deleting customer');
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

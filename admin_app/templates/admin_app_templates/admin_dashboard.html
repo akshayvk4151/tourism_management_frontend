@@ -1,0 +1,99 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    .card {
+        /* margin-top: 50%; */
+        padding: 25px;
+        background-color: darksalmon;
+        border: 2px solid black;
+    }
+
+    .number {
+        font-weight: bold;
+        font-size: 50px;
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+    .number:hover {
+        transform: scale(1.6);
+    }
+
+    .heading {
+        letter-spacing: 2px;
+        font-weight: 800;
+        color: brown;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .box {
+        transition: transform 0.3s ease;
+    }
+
+    .box:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-4 col-md-4 col-sm-12 box mt-2">
+                <div class="card text-center">
+                    <h1 class="number" id="total_destination"></h1>
+                    <h5 class="heading">Total Destination</h5>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 box mt-2">
+                <div class="card text-center">
+                    <h1 class="number" id="total_booking">4</h1>
+                    <h5 class="heading">Total Booking</h5>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 box mt-2">
+                <div class="card text-center">
+                    <h1 class="number" id="total_users"></h1>
+                    <h5 class="heading">Total User</h5>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/dashboard/',
+            type: 'GET',
+
+            success: function (response) {
+                $("#total_destination").text(response.data.total_destination);
+                $("#total_users").text(response.data.total_customer);
+
+            }
+        })
+
+    })
+</script>
+
+{% endblock %}

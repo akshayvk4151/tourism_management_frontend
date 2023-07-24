@@ -1,0 +1,272 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+
+</style>
+
+{% endblock %}
+
+{% block title %}View Destinations{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="image1 mt-3">
+                    <img src="" id="destination-image1" alt="" class="img-fluid"
+                        style="    max-height: 400px;width: 100%;">
+                </div>
+
+            </div>
+        </div>
+        <div class="row flex-lg-row">
+            <div class="col-lg-5 col-md-12 order-md-2 order-2">
+
+                <div class="image2 mt-3">
+                    <img src="" id="destination-image2" alt="" class="img-fluid">
+                </div>
+                <div class="image3 mt-3">
+                    <img src="" id="destination-image3" alt="" class="img-fluid">
+                </div>
+
+            </div>
+            <div class="col-lg-7 col-12 ">
+                <div class="row mt-5">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Place</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5 id="place"></h5>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Country</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5 id="country"></h5>
+                    </div>
+                </div>
+                <hr>
+                <div class="row ">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Tour</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5 id="tour_days"></h5><span>
+                            <h5 id="tour_nights"></h5>
+                        </span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Number of Person</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5 id="no_of_person"></h5>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Description</strong> </h5>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                        <h5 id="description"></h5>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Travelling</strong> </h5>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-9">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="travel-mode" data-name="bus" id="bus"
+                                value="bus">
+                            <label class="form-check-label" for="bus">Bus</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="travel-mode" id="train" data-name="train"
+                                value="train">
+                            <label class="form-check-label" for="train">Train</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="travel-mode" id="flight"
+                                data-name="flight" value="flight">
+                            <label class="form-check-label" for="flight">Flight</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Food</strong> </h5>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-9">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="travel-food" data-name="Yes"
+                                id="yes_food" value="yes_food">
+                            <label class="form-check-label" for="bus">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="travel-food" data-name="No" id="no_food"
+                                value="no_food">
+                            <label class="form-check-label" for="train">No</label>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Date</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <input type="date" id="date">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <h5><strong>Total Price</strong> </h5>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                        <input type="number" id="total_price">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-success" type="button" id="subBtn">Submit</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="image2 mt-3">
+                            <img src="" id="destination-image4" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Get the destination ID from the URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var destinationId = urlParams.get('id');
+        console.log(destinationId)
+        var customer_id = localStorage.getItem('customer_id')
+        // console.log(customer_id)
+
+        // Fetch the destination data from your server using an AJAX request
+        $.ajax({
+            url: 'http://localhost:9000/common/view_destinations/' + destinationId,
+            type: 'GET',
+            success: function (data) {
+                // Update the HTML elements with the destination data
+                img1 = 'http://127.0.0.1:9000' + data.image1
+                $('#destination-image1').attr('src', img1);
+                img2 = 'http://127.0.0.1:9000' + data.image2
+                $('#destination-image2').attr('src', img2);
+                img3 = 'http://127.0.0.1:9000' + data.image3
+                $('#destination-image3').attr('src', img3);
+                img4 = 'http://127.0.0.1:9000' + data.image4
+                $('#destination-image4').attr('src', img4);
+                $('#place').text(data.place);
+                $('#country').text(data.country);
+                $('#tour_days').text(data.days);
+                $('#tour_nights').text(data.nights);
+                $('#no_of_person').text(data.number_of_person);
+                $('#description').text(data.description);
+                $('#bus').val(data.bus_price);
+                $('#train').val(data.train_price);
+                $('#flight').val(data.flight_price);
+                $('#yes_food').val(data.food_price);
+
+
+                var totalPrice = 0;
+
+                $('input[name="travel-mode"], input[name="travel-food"]').on('click', function () {
+                    var travelPrice = 0;
+                    var foodPrice = 0;
+
+                    if ($('#bus').is(':checked')) {
+                        travelPrice = data.bus_price;
+                    } else if ($('#train').is(':checked')) {
+                        travelPrice = data.train_price;
+                    } else if ($('#flight').is(':checked')) {
+                        travelPrice = data.flight_price;
+                    }
+
+                    if ($('#yes_food').is(':checked')) {
+                        foodPrice = data.food_price;
+                    }
+
+                    totalPrice = travelPrice + foodPrice;
+                    $('#total_price').val(totalPrice);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        $('#subBtn').click(function (event) {
+            event.preventDefault();
+            var travelMode = $('input[name="travel-mode"]:checked').data('name');
+            var travelFood = $('input[name="travel-food"]:checked').data('name');
+            var travelDate = $('#date').val();
+            var travelPrice = $('#total_price').val();
+            var customer_id = localStorage.getItem('customer_id');
+            var destinationId = urlParams.get('id');
+            var booking_data = {
+                'travel_mode': travelMode,
+                'travel_food': travelFood,
+                'travel_date': travelDate,
+                'travel_price': travelPrice,
+                'customer': customer_id,
+                'destination': destinationId
+                
+
+            }
+            console.log(booking_data)
+            console.log(customer_id)
+            $.ajax({
+                url: 'http://localhost:9000/common/book_destination/' + destinationId + '/' + customer_id + '/',
+
+                type: 'POST',
+                data: booking_data,
+                
+
+                success: function (responce) {
+                    console.log(responce.message)
+
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+
+        })
+
+
+
+    })
+</script>
+
+
+{% endblock %}

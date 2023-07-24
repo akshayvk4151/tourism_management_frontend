@@ -1,0 +1,153 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    .alert-success {
+        display: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Add Blog{% endblock %}
+{% block content %}
+
+
+
+<section>
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="mb-4 mt-5">Add Blog</h1>
+
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="border-radius: 15px;">
+                    <div class="card-body">
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Topic</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" placeholder="Topic" id="topic" class="form-control form-control-lg"
+                                    required />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Post Date</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="date" class="form-control form-control-lg" id="date" placeholder="Date"
+                                    required />
+
+                            </div>
+                        </div>
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Description</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <textarea class="form-control" rows="3" id="description"
+                                    placeholder="Right description..." required></textarea>
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Upload Image</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input class="form-control form-control-lg" id="image" type="file" required />
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="px-5 py-4">
+                            <button type="button" id="subBtn" class="btn btn-primary btn-lg">Add Blog</button>
+                        </div>
+                        <!-- <span id="span1"></span> -->
+                        <div class="alert alert-success alert-dismissible" id="alert-success">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong id="span1"></strong>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#subBtn').click(function () {
+            var blog_data = new FormData();
+            blog_data.append('Blog_topic', $('#topic').val());
+            blog_data.append('post_date', $('#date').val());
+            blog_data.append('blog_description', $('#description').val());
+            blog_data.append('blog_image', $('#image')[0].files[0]);
+            console.log(blog_data)
+
+            $.ajax({
+                url: "http://localhost:9000/admin_app/add_blog/",
+                data: blog_data,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.message) {
+                        $('#span1').html(response.message);
+                        $('#alert-success').show();
+                    } else {
+                        $('#alert-success').hide();
+                    }
+                    $('#topic').val('')
+                    $('#date').val('')
+                    $('#description').val('')
+                    $('#image').val('')
+
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            })
+        })
+    })
+
+
+</script>
+
+
+
+{% endblock %}

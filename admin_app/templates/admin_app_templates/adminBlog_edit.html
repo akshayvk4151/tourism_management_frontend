@@ -1,0 +1,198 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    .alert-success {
+        display: none;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Edit Blog{% endblock %}
+{% block content %}
+
+
+
+<section>
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="mb-4 mt-5">Add Blog</h1>
+
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <form id="blogForm" enctype="multipart/form-data">
+                            <div class="row align-items-center pt-4 pb-3">
+                                <div class="col-md-3 ps-5">
+
+                                    <h6 class="mb-0">Topic</h6>
+
+                                </div>
+                                <div class="col-md-9 pe-5">
+
+                                    <input type="text" placeholder="Topic" id="topic"
+                                        class="form-control form-control-lg" required />
+
+                                </div>
+                            </div>
+
+                            <hr class="mx-n3">
+
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+
+                                    <h6 class="mb-0">Post Date</h6>
+
+                                </div>
+                                <div class="col-md-9 pe-5">
+
+                                    <input type="date" class="form-control form-control-lg" id="date" placeholder="Date"
+                                        required />
+
+                                </div>
+                            </div>
+                            <hr class="mx-n3">
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+
+                                    <h6 class="mb-0">Description</h6>
+
+                                </div>
+                                <div class="col-md-9 pe-5">
+
+                                    <textarea class="form-control description" rows="3" id="description"
+                                        placeholder="Right description..." required></textarea>
+
+                                </div>
+                            </div>
+
+                            <hr class="mx-n3">
+                            <div class="row align-items-center py-3">
+                                <div class="col-md-3 ps-5">
+
+                                    <h6 class="mb-0" id="image-label">Upload Image</h6>
+
+                                </div>
+                                <div class="col-md-9 pe-5">
+
+                                    <input class="form-control form-control-lg" id="image" type="file" required />
+                                </div>
+                                <span id="show_img"></span>
+                                <div>
+                                    <img src="" id="myimage"
+                                        style="width: 30px;width: 177px;margin-top: 15px;    height: 120px;" alt="">
+                                </div>
+                            </div>
+
+                            <hr class="mx-n3">
+
+                            <div class="px-5 py-4">
+                                <button type="button" id="subBtn" class="btn btn-success btn-lg mt-3">Update
+                                    Blog</button>
+                                <button class="btn btn-info btn-lg mt-3"><a style="text-decoration: none; color: #fff;"
+                                        href="{% url 'admin_app:adminView_blog' %}">Back</a></button>
+
+
+                            </div>
+
+                            <!-- <span id="span1"></span> -->
+                            <div class="alert alert-success alert-dismissible" id="alert-success">
+                                <button type="button" id="subBtn" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong id="span1"></strong>
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        // Get the ID from the URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var blogId = urlParams.get('id');
+
+        // Make an AJAX GET request to fetch the blog data
+        $.ajax({
+            url: "http://localhost:9000/admin_app/update_blog/" + blogId + "/",
+            type: "GET",
+            success: function (data) {
+                // Populate the fields with the fetched data
+                $("#topic").val(data.Blog_topic);
+                $("#date").val(data.post_date);
+                $("#description").val(data.blog_description)
+                // console.log(data.blog_description)
+                img = 'http://127.0.0.1:9000' + data.blog_image
+                $("#myimage").attr('src', img);
+                // console.log(data.blog_image)
+
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+
+        // Handle form submission
+        $("#subBtn").click(function () {
+            var form_data = new FormData();
+            form_data.append('id', blogId);
+
+            // Check if the topic field should be updated
+            if ($("#topic").val() !== "") {
+                form_data.append('Blog_topic', $("#topic").val());
+            }
+
+            // Check if the post_date field should be updated
+            if ($("#date").val() !== "") {
+                form_data.append('post_date', $("#date").val());
+            }
+
+            // Check if the blog_description field should be updated
+            if ($("#description").val() !== "") {
+                form_data.append('blog_description', $("#description").val());
+            }
+
+            // Check if a new image is added to the input field
+            if ($('#image')[0].files.length > 0) {
+                form_data.append('blog_image', $('#image')[0].files[0]);
+            }
+            console.log(form_data)
+            $.ajax({
+                url: "http://localhost:9000/admin_app/update_blog/" + blogId + "/",
+                type: "PUT",
+                data: form_data,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data)
+                    if (data.message) {
+                        $('#span1').html(data.message);
+                        $('#alert-success').show();
+                        window.location.href = "http://127.0.0.1:8001/admin_app/adminView_blog/";
+                    } else {
+                        $('#alert-success').hide();
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}

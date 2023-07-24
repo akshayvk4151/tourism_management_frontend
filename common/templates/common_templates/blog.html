@@ -1,0 +1,62 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    img {
+        height: 300px;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Blog{% endblock %}
+{% block content %}
+
+<section class="section2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center mt-5 mb-3">
+                <h3 class="mb-5"><strong>View Blog</strong></h3>
+
+
+            </div>
+        </div>
+        <div class="row" id="blog-posts">
+
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: 'http://localhost:9000/common/blog/',
+            type: 'GET',
+            success: function (data) {
+                $.each(data.blog_data, function (index, post) {
+                    var blogPost = '<div class="col-lg-3 col-md-6 col-sm-12"><div class="card mt-3"><img class="card-img-top" src="http://127.0.0.1:9000' + post.blog_image + '" alt="Card image"><div class="card-body"><h5 class="card-title">' + post.Blog_topic + '</h5><p class="card-text">Posted on. ' + post.post_date + '</p><a href="#" class="btn btn-primary read_more_btn" id="read_more_btn" data-post-id="' + post.id + '">Read more</a></div></div></div>';
+
+                    $('#blog-posts').append(blogPost);
+                });
+
+                // add event listener to read more button
+                $('.read_more_btn').click(function (event) {
+                    event.preventDefault()
+                    var post_Id = $(this).data('post-id')
+                    
+                    window.location.href = 'http://127.0.0.1:8001/view_blog/?id=' + post_Id 
+                })
+
+
+            }
+        });
+    });
+</script>
+
+
+
+
+{% endblock %}

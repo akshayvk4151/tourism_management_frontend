@@ -1,0 +1,238 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    .alert-success {
+        display: none;
+    }
+
+    iframe {
+        height: 332px;
+        width: 100%;
+        height: 800px;
+    }
+
+    @media only screen and (max-width:991px) {
+        iframe {
+            max-width: 100%;
+            border: 0;
+            max-height: 300px;
+
+        }
+    }
+
+    @media only screen and (max-width:500px) {
+        iframe {
+            max-width: 100%;
+            border: 0;
+            max-height: 300px;
+
+        }
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+<div class="heading">
+    <div class="row">
+        <div class="col-12 mb-5 mt-3 text-center">
+            <h1>Contact Us</h1>
+        </div>
+    </div>
+
+</div>
+<section class="section1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 order-md-1 order-1">
+                <div class="map embed-responsive embed-responsive-16by9">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4016726.967739043!2d73.49662959524423!3d10.533321440020364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0812ffd49cf55b%3A0x64bd90fbed387c99!2sKerala!5e0!3m2!1sen!2sin!4v1682488668471!5m2!1sen!2sin"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 order-md-2 order-2">
+                <div class="row">
+                    <div class="col-md-12 col-12">
+                        <div>
+                            <h3>Registered Office:</h3>
+                            <h5>F 12/1 Third Floor L/S, Malviya Nagar,<br>New Delhi 110017, Delhi India,</h5>
+                            <h5>Phone: 8010224422</h5>
+                        </div>
+                        <br>
+                        <br>
+                        <div>
+                            <h3>Work Office</h3>
+                            <h5>H-294, 1st floor, Lane no-2, Westend Marg,<br>Saidulajab, Saket, New Delhi, Delhi
+                                110017,</h5>
+                            <h5>Phone: 7827956056</h5>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="form-body">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" id="name" name="name"
+                                                class="form-control form-control-lg" required>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <label class="form-label">Phone No.</label>
+                                            <input type="number" name="phone" id="phone"
+                                                class="form-control form-control-lg" required />
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" name="phone" id="email"
+                                                class="form-control form-control-lg" required />
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-2">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="Address">Description</label>
+                                            <textarea class="form-control form-control-lg"
+                                                style="font-size: 20px;height: 100px;" name="pat_description"
+                                                id="description" cols="30" rows="4" placeholder="Description..."
+                                                required></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" row mt-4 pt-2">
+                                    <div class="col-md-4">
+                                        <button type="button" class="btn btn-outline-success form-control mt-3"
+                                            id="subBtn">
+                                            Submit
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                                <div class="alert alert-success alert-dismissible mt-2" id="alert-success">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    <strong id="span1"></strong>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#subBtn').click(function () {
+            const name = $('#name').val()
+            const email = $('#email').val()
+            const phone = $('#phone').val()
+            const description = $('#description').val()
+            const re = /\S+@\S+\.\S+/;
+            var phoneRegex = /^\d{10}$/;
+
+            if (name === '') {
+                alert("Name field is required")
+                $('#name').focus();
+                return false;
+            }
+
+            // Validate phone number format
+            if (phone === '') {
+                alert("Phone field is required")
+                $('#phone').focus();
+                return false;
+            } else if (!phoneRegex.test(phone)) {
+                // Phone number format is invalid
+                console.log('Invalid phone number format');
+                alert('Invalid phone format')
+                return;
+            }
+
+            // Validate email format
+            if (email === '') {
+                alert("Email field is required")
+                $('#email').focus();
+                return false;
+            } else if (re.test(email)) {
+                // Email format is invalid
+                console.log('Email format is valid');
+            } else {
+                console.log('Email format is invalid');
+                return;
+            }
+
+            if (description === '') {
+                alert("description field is required")
+                $('#description').focus();
+                return false;
+            }
+
+
+            var contact_data = {
+                'name': name,
+                'phone': phone,
+                'email': email,
+                'description': description,
+            }
+            console.log(contact_data)
+            $.ajax({
+                url: 'http://localhost:9000/common/contact_us/',
+                type: 'POST',
+                data: contact_data,
+                success: function (response) {
+                    if (response.message) {
+                        $('#span1').html(response.message);
+                        $('#alert-success').show();
+                    } else {
+                        $('#alert-success').hide();
+                    }
+                    $('#name').val(''),
+                        $('#phone').val(''),
+                        $('#email').val(''),
+                        $('#description').val('')
+
+                }
+            })
+
+        })
+
+
+    })
+
+
+
+</script>
+
+
+
+
+
+
+
+{% endblock %}

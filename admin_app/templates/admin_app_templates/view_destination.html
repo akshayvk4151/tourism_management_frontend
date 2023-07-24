@@ -1,0 +1,197 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<style>
+    strong {
+        text-shadow: 3px 2px 4px #000000;
+        letter-spacing: 4px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+
+        font-size: 17px;
+        font-weight: 500;
+        background-color: cadetblue;
+        color: ivory;
+    }
+
+    .tableHead {
+        background-color: darkblue;
+        color: #fff;
+        height: 53px;
+    }
+
+    .docImage img {
+        width: 85px;
+        border-radius: 9px;
+        border: 1px solid #fff;
+    }
+
+
+
+    .card-img {
+        width: 80px;
+        height: 88px;
+    }
+
+    .btn {
+        float: right;
+        margin-bottom: 1px;
+    }
+
+    .tableHead th {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 350px) {
+        .tableHead th {
+            white-space: normal;
+            width: auto;
+        }
+    }
+</style>
+
+
+
+{% endblock %}
+
+{% block title %}Common Home{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-5"><strong>View Destination</strong></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container-fluid">
+                <div style="overflow-x: auto;">
+                    <table id="tabData">
+                        <tr class="tableHead">
+                            <th>SL.No</th>
+                            <th>Image</th>
+                            <th>Place</th>
+                            <th>Country</th>
+                            <th>Bus price</th>
+                            <th>Train Price</th>
+                            <th>Flight price</th>
+                            <th>Food price</th>
+                            <th>Person</th>
+                            <th>Duration</th>
+                            <th colspan="2" class="text-center">Action</th>
+
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $.ajax({
+            url: 'http://localhost:9000/admin_app/view_destination/',
+            type: 'GET',
+            success: function (response) {
+                if (response.detination_data.length === 0) {
+                    $('.tableHead').html('<h3 class="col-md-12 text-center mt-2"> No Destinations are added. </h3>');
+                } else {
+                    for (var i = 0; i < response.detination_data.length; i++) {
+                        var destination = response.detination_data[i];
+                        var tr = $('<tr>');
+                        tr.append('<td class="destination_id">' + (i + 1) + '</td>');
+                        tr.append('<td><img class="card-img" src="http://127.0.0.1:9000' + destination.image1 + '" alt="Card image"></td>');
+                        tr.append('<td>' + destination.place + '</td>');
+                        tr.append('<td>' + destination.country + '</td>');
+                        tr.append('<td>' + destination.bus_price + '</td>');
+                        tr.append('<td>' + destination.train_price + '</td>');
+                        tr.append('<td>' + destination.flight_price + '</td>');
+                        tr.append('<td>' + destination.food_price + '</td>');
+                        tr.append('<td>' + destination.number_of_person + '</td>');
+                        tr.append('<td>' + destination.days + ' <span>' + destination.nights + '</span></td>');
+
+                        tr.append("<td><button class='btn btn-info editButton' id='editButton" + destination.id + "' data-destination-id='" + destination.id + "'>Edit</button></td>");
+
+                        tr.append("<td><button class='btn btn-danger deleteButton' id='deleteButton" + destination.id + "'>Delete</button></td>");
+                        $('#tabData').append(tr);
+                    }
+                }
+
+                // add event listener to edit button
+                $('.editButton').click(function (event) {
+                    event.preventDefault()
+                    var destination_Id = $(this).data('destination-id')
+
+                    window.location.href = 'http://127.0.0.1:8001/admin_app/edit_destination/?id=' + destination_Id
+                })
+
+                // add event listener to delete button
+
+                $(document).on('click', '.deleteButton', function () {
+                    var destination_Id = $(this).attr('id').replace('deleteButton', '')
+                    var confirmDelete = confirm('Are you sure you want to delete?');
+                    if (confirmDelete) {
+                        delete_destination(destination_Id);
+                    }
+                    else {
+                        console.log('Customer deletion cancelled.');
+                    }
+
+                    // alert(destination_id)
+                    function delete_destination(dest_Id) {
+                        $.ajax({
+                            url: 'http://localhost:9000/admin_app/delete_destination/' + dest_Id + '/',
+                            type: 'DELETE',
+                            success: function (responce) {
+                                $('#deleteButton' + dest_Id).closest('tr').remove();
+                                alert(responce.message)
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+
+                        })
+
+                    }
+
+
+                })
+
+            }
+
+
+        });
+    });
+</script>
+
+
+
+
+
+
+{% endblock %}

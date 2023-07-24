@@ -1,0 +1,433 @@
+{% extends 'admin_app_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<style>
+    #place::first-letter {
+        text-transform: capitalize;
+    }
+
+    .alert-success {
+        display: none;
+    }
+</style>
+
+
+
+
+{% endblock %}
+
+{% block title %}Edit description{% endblock %}
+{% block content %}
+
+<!-- <section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <h3>Add Description</h3>
+                <button type="button" class="btn btn-secondary">Secondary</button>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<section>
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-9">
+
+                <h1 class="mb-4 mt-5">Add Destination</h1>
+
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="border-radius: 15px;">
+                    <div class="card-body">
+
+                        <div class="row align-items-center pt-4 pb-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Place</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" placeholder="Place" id="place"
+                                    class="form-control form-control-lg" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Country</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" class="form-control form-control-lg" id="country"
+                                    placeholder="Country" />
+
+                            </div>
+                        </div>
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Bus price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="bus_price"
+                                    placeholder="Bus price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Train price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="train_price"
+                                    placeholder="Train price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Flight price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" class="form-control form-control-lg" id="flight_price"
+                                    placeholder="Flight price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+                                <h6 class="mb-0">Images 1</h6>
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <input class="form-control form-control-lg mb-2" id="img1" type="file" />
+                                        <span id="image1"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <img src="" id="image_1" alt="" style="width: 100%; max-width: 189px;"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 2</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <input class="form-control form-control-lg mb-2" id="img2" type="file" />
+                                        <span id="image2"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <img src="" id="image_2" alt="" style="width: 100%; max-width: 189px;"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 3</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <input class="form-control form-control-lg mb-2" id="img3" type="file" />
+                                        <span id="image3"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <img src="" id="image_3" alt="" style="width: 100%; max-width: 189px;"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Images 4</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <input class="form-control form-control-lg mb-2" id="img4" type="file" />
+                                        <span id="image4"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <img src="" id="image_4" alt="" style="width: 100%; max-width: 189px;"
+                                            class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Food price</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" id="food_price" class="form-control form-control-lg"
+                                    placeholder="Food price" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Number of person</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="number" id="total_persons" class="form-control form-control-lg"
+                                    placeholder="Number of person" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Days</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" id="days" class="form-control form-control-lg" placeholder="Days" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Nights</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <input type="text" id="nights" class="form-control form-control-lg"
+                                    placeholder="Nights" />
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="row align-items-center py-3">
+                            <div class="col-md-3 ps-5">
+
+                                <h6 class="mb-0">Description</h6>
+
+                            </div>
+                            <div class="col-md-9 pe-5">
+
+                                <textarea class="form-control" id="description" rows="3"
+                                    placeholder="Right description..."></textarea>
+
+                            </div>
+                        </div>
+
+                        <hr class="mx-n3">
+
+                        <div class="px-5 py-4">
+                            <button type="button" id="subBtn" class="btn btn-primary btn-lg">Update Destination</button>
+                        </div>
+                        <div class="alert alert-success alert-dismissible" id="alert-success">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong id="span1"></strong>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Get the ID from the URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var dest_Id = urlParams.get('id');
+
+        // Make an AJAX GET request to fetch the blog data
+        $.ajax({
+            url: "http://localhost:9000/admin_app/edit_destination/" + dest_Id + "/",
+            type: "GET",
+            success: function (data) {
+                // Populate the fields with the fetched data
+                $("#place").val(data.place);
+                $("#country").val(data.country);
+                $("#bus_price").val(data.bus_price);
+                $("#train_price").val(data.train_price);
+                $("#flight_price").val(data.flight_price);
+                // first image 
+                img1 = 'http://127.0.0.1:9000' + data.image1
+                $("#image_1").attr('src', img1);
+                $("#image1").text(data.image1); //image address
+                // second image 
+                img2 = 'http://127.0.0.1:9000' + data.image2
+                $("#image_2").attr('src', img2);
+                $("#image2").text(data.image2); //image address
+                // third image 
+                img3 = 'http://127.0.0.1:9000' + data.image3
+                $("#image_3").attr('src', img3);
+                $("#image3").text(data.image3); //image address
+                // forth image 
+                img4 = 'http://127.0.0.1:9000' + data.image4
+                $("#image_4").attr('src', img4);
+                $("#image4").text(data.image4); //image address
+
+                $("#food_price").val(data.food_price);
+                $("#total_persons").val(data.number_of_person);
+                $("#days").val(data.days);
+                $("#nights").val(data.nights);
+                $("#description").val(data.description);
+
+
+            },
+            error: function (xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+
+        // handle the update submit
+        $('#subBtn').click(function () {
+            var destination_data = new FormData();
+            destination_data.append('id', dest_Id);
+            // Check if the place field should be updated
+            if ($("#place").val() !== "") {
+                destination_data.append('place', $("#place").val());
+            }
+            if ($("#country").val() !== "") {
+                destination_data.append('country', $("#country").val());
+            }
+            if ($("#bus_price").val() !== "") {
+                destination_data.append('bus_price', $('#bus_price').val());
+            }
+            if ($("#train_price").val() !== "") {
+                destination_data.append('train_price', $('#train_price').val());
+            }
+            if ($("#flight_price").val() !== "") {
+                destination_data.append('flight_price', $('#flight_price').val());
+            }
+            if ($("#img1").val() !== "") {
+                destination_data.append('image1', $('#img1')[0].files[0]);
+            }
+            if ($("#img2").val() !== "") {
+                destination_data.append('image2', $('#img2')[0].files[0]);
+            }
+
+            if ($("#img3").val() !== "") {
+                destination_data.append('image3', $('#img3')[0].files[0]);
+            }
+
+            if ($("#img4").val() !== "") {
+                destination_data.append('image4', $('#img4')[0].files[0]);
+            }
+            if ($("#food_price").val() !== "") {
+                destination_data.append('food_price', $('#food_price').val());
+            }
+
+            if ($("#total_persons").val() !== "") {
+                destination_data.append('number_of_person', $('#total_persons').val());
+            }
+
+            if ($("#days").val() !== "") {
+                destination_data.append('days', $('#days').val());
+            }
+
+            if ($("#nights").val() !== "") {
+                destination_data.append('nights', $('#nights').val());
+            }
+
+            if ($("#description").val() !== "") {
+                destination_data.append('description', $('#description').val());
+            }
+
+            console.log(destination_data)
+
+            $.ajax({
+                url: "http://localhost:9000/admin_app/edit_destination/" + dest_Id + "/",
+                type: "PUT",
+                data: destination_data,
+                processData: false,
+                contentType: false,
+                
+                success: function (response) {
+                    console.log(response.message);
+                    if (response.message) {
+                        $('#span1').html(response.message);
+                        $('#alert-success').show();
+                        window.location.href = "http://127.0.0.1:8001/admin_app/view_destination/";
+                    } else {
+                        $('#alert-success').hide();
+                    }
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    // Handle error response as needed
+                }
+            });
+        });
+
+
+
+    });
+
+</script>
+
+
+{% endblock %}

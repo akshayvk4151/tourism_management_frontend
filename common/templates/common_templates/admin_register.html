@@ -1,0 +1,277 @@
+{% extends 'common_templates/base.html' %}
+{% load static %}
+
+{% block header %}
+<!-- <link rel="stylesheet" href="{% static 'css/style_register.css' %}"> -->
+
+<style>
+    .result {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: green;
+        font-weight: bold;
+        margin-top: -28px;
+    }
+</style>
+
+{% endblock %}
+
+{% block title %}Admin Register{% endblock %}
+{% block content %}
+
+<section class="container mt-5">
+    <div class="row justify-content-md-center">
+        <form id="form" class="col-md-6 col-sm-12 bg-white p-5 rounded shadow">
+
+            <div class="col-12 text-center">
+                <h3 class="text-primary"><strong>Register Now</strong></h3>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="admin_name" name="admin_name">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="admin_email" name="admin_email">
+                <span id="email_check"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="admin_password" name="admin_password" required />
+                <span id="password-error" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="admin_confirm_password" name="admin_confirm_password"
+                    required />
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" id='subBtn' class="btn btn-primary btn-rounded w-75">Register Now</button>
+            </div>
+            <br><br>
+            <span id="span1" class="result"></span>
+            <br>
+
+            <p class="text-left" style="font-size:15px">If you already have an account, <a
+                    href="/customer_login">login</a> instead.
+            </p>
+
+        </form>
+    </div>
+</section>
+
+
+
+<!-- <script>
+    const form = document.querySelector('form');
+    const nameInput = document.getElementById('admin_name');
+    const emailInput = document.getElementById('admin_email');
+    const passwordInput = document.getElementById('admin_password');
+    const confirmPasswordInput = document.getElementById('admin_confirm_password');
+    const passwordError = document.getElementById('password-error');
+
+    // Add event listener to form submit
+    form.addEventListener('submit', function (event) {
+        // Prevent form submission
+        event.preventDefault();
+
+        // Validate the name field
+        if (nameInput.value === '') {
+            alert('Please enter your name.');
+            nameInput.focus();
+            return false;
+        }
+
+
+
+        // Validate the email field
+        if (emailInput.value === '') {
+            alert('Please enter your email address.');
+            emailInput.focus();
+            return false;
+        } else if (!validateEmail(emailInput.value)) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return false;
+        }
+
+        // Validate the password field
+        if (passwordInput.value === '') {
+
+            passwordError.textContent = 'Please enter a password.';
+            passwordInput.focus();
+            return false;
+        } else if (passwordInput.value.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters long.';
+            passwordInput.focus();
+            return false;
+        }
+        else {
+            passwordError.textContent = ''; // clear the error message if the password is valid
+        }
+
+
+
+        // Validate the confirm password field
+        if (confirmPasswordInput.value === '') {
+            alert('Please confirm your password.');
+            confirmPasswordInput.focus();
+            return false;
+        } else if (confirmPasswordInput.value !== passwordInput.value) {
+            alert('Passwords do not match.');
+            confirmPasswordInput.focus();
+            return false;
+        }
+
+
+        // If all fields are valid, submit the form
+        // alert('Registration successful!');
+        // form.submit();
+    });
+
+    // Helper function to validate email address
+    function validateEmail(email) {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+</script> -->
+
+
+
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+<script>
+    $('#admin_email').change(function () {
+        var email_obj = {
+            'admin_email': $('#admin_email').val(),
+        }
+
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": $('[name=csrfmiddlewaretoken]').val() //passing csrf token in ajax request
+            }
+        })
+
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:9000/common/admin_register/",
+            data: email_obj,
+            success: function (response) {
+                if (response.email_exist == true) {
+                    $('#email_check').html(response.msg1).css("color", "red",)
+                    $('#btnColor').prop('disabled', true)
+                }
+                else {
+                    $('#email_check').html(response.msg1).css("color", "green")
+                    $('#btnColor').prop('disabled', false)
+
+                }
+
+                console.log(response.email_exist)
+            }
+        })
+    })
+</script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#subBtn').click(function (event) {
+            event.preventDefault(); // prevent default form submission
+
+            var admin_obj = {
+                'admin_name': $('#admin_name').val(),
+                'admin_email': $('#admin_email').val(),
+                'admin_password': $('#admin_password').val(),
+                'admin_confirm_password': $('#admin_confirm_password').val(),
+            }
+
+            // Validate the name field
+            if (admin_obj.admin_name === '') {
+                alert('Please enter your name.');
+                $('#admin_name').focus();
+                return false;
+            }
+
+            // Validate the email field
+            if (admin_obj.admin_email === '') {
+                alert('Please enter your email address.');
+                $('#admin_email').focus();
+                return false;
+            } else if (!validateEmail(admin_obj.admin_email)) {
+                alert('Please enter a valid email address.');
+                $('#admin_email').focus();
+                return false;
+            }
+
+            // Validate the password field
+            if (admin_obj.admin_password === '') {
+                alert('Please enter a password.');
+                $('#admin_password').focus();
+                return false;
+            } else if (admin_obj.admin_password.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                $('#admin_password').focus();
+                return false;
+            }
+
+            // Validate the confirm password field
+            var confirmPasswordInput = document.getElementById('admin_confirm_password');
+            if (confirmPasswordInput.value === '') {
+                alert('Please confirm your password.');
+                confirmPasswordInput.focus();
+                return false;
+            } else if (confirmPasswordInput.value !== admin_obj.admin_password) {
+                alert('Passwords do not match.');
+                confirmPasswordInput.focus();
+                return false;
+            }
+
+
+            // Helper function to validate email address
+            function validateEmail(email) {
+                const re = /^\S+@\S+\.\S+$/;
+                return re.test(email);
+            }
+
+
+
+
+            console.log(admin_obj)
+
+            $.ajax({
+                url: "http://localhost:9000/common/admin_register/",
+                data: admin_obj,
+                type: 'POST',
+                success: function (response) {
+
+                    $('#span1').text(response.msg);
+                    $('#admin_name').val('');
+
+
+                    $('#admin_email').val('');
+                    $('#admin_password').val('');
+                    $('#admin_confirm_password').val('');
+                    $('#email_check').html('');
+
+                }
+            })
+
+            return false; // Prevent form submission
+        })
+    })
+
+
+</script>
+
+
+
+
+{% endblock %}
